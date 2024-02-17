@@ -1,17 +1,35 @@
 require("dotenv").config();
-
-require("./db/db");
 const express = require("express");
-const mongoose = require("mongoose");
 const app = express();
-const PORT = process.env.PORT || 3000;
+const cors = require("cors");
+const corsOptions = require("./config/corsOptions");
+const { logger } = require("./middlewares/logEvents");
+const errorHandler = require("./middlewares/errorHandler");
+const mongoose = require("mongoose");
+const connectDB = require("./db/db");
+const PORT = process.env.PORT || 3500;
 
-// Middleware to parse JSON
+// Connect to MongoDB
+connectDB();
+
+// custom middleware logger
+app.use(logger);
+
+// Cross Origin Resource Sharing
+app.use(cors(corsOptions));
+
+// built-in middleware to handle urlencoded form data
+app.use(express.urlencoded({ extended: false }));
+
+// built-in middleware for json
 app.use(express.json());
 
-// Define your routes and controllers here...
+// routes
+app.use("/api/user", require("./controllers/User.controller"));
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.use(errorHandler);
+
+mongoose.connection.once("open", () => {
+  console.log("Connected to MongoDB");
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 });
