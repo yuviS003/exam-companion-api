@@ -7,6 +7,7 @@ const { logger } = require("./middlewares/logEvents");
 const errorHandler = require("./middlewares/errorHandler");
 const mongoose = require("mongoose");
 const connectDB = require("./db/db");
+const { verifyToken } = require("./middlewares/authHandler");
 const PORT = process.env.PORT || 3500;
 
 // Connect to MongoDB
@@ -26,6 +27,11 @@ app.use(express.json());
 
 // routes
 app.use("/api/user", require("./controllers/User.controller"));
+
+// middleware to verify jwt
+app.use(verifyToken);
+
+app.use("/api/excel", require("./controllers/ExcelParser.controller"));
 
 app.use(errorHandler);
 

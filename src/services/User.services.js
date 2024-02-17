@@ -1,5 +1,8 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/User.model");
+const jwt = require("jsonwebtoken");
+const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
+const JWT_EXPIRY = process.env.JWT_EXPIRY;
 
 async function registerUser(userDetails) {
   console.log(userDetails);
@@ -33,7 +36,7 @@ async function loginUser(email, password) {
     throw new Error("Invalid password");
   }
 
-  return {
+  const userDetails = {
     _id: user._id,
     name: user.name,
     email: user.email,
@@ -42,6 +45,16 @@ async function loginUser(email, password) {
     organization: user.organization,
     profession: user.profession,
     profilePhoto: user.profilePhoto,
+  };
+
+  // Generate JWT with expiration time of 1 hour
+  const token = jwt.sign(userDetails, JWT_SECRET_KEY, {
+    expiresIn: JWT_EXPIRY,
+  });
+
+  return {
+    userDetails,
+    token,
   };
 }
 
