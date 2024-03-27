@@ -1,17 +1,16 @@
 const mongoose = require("mongoose");
-const { v4: uuidv4 } = require("uuid");
 
 const userSchema = new mongoose.Schema(
   {
-    _id: { type: String, default: uuidv4, unique: true },
     name: { type: String, required: true },
+    userName: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
-    contactNumber: { type: String, required: false },
-    gender: { type: String, required: false },
-    organization: { type: String, required: false },
-    profession: { type: String, required: false },
-    profilePhoto: { type: String, required: false },
     password: { type: String, required: true },
+    contactNumber: { type: String, default: null },
+    gender: { type: String, default: null },
+    organization: { type: String, default: null },
+    profession: { type: String, default: null },
+    profilePhoto: { type: String, default: null },
   },
   {
     timestamps: true,
