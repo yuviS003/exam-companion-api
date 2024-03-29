@@ -68,7 +68,7 @@ async function uploadFormTemplate(req, res, next) {
     const bufferData = req.file.buffer;
     const data = await excelParserServices.parseExcelBuffer(bufferData);
 
-    res.status(200).json({ data });
+    res.status(200).json(data);
   } catch (error) {
     console.error("Error uploading file:", error);
     res.status(500).json({ message: error.message || "Error uploading file." });
