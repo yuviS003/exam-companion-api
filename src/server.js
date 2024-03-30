@@ -29,7 +29,7 @@ app.use(express.json());
 app.use("/api/user", require("./controllers/User.controller"));
 
 // middleware to verify jwt
-// app.use(verifyToken);
+app.use(verifyToken);
 
 app.use("/api/excel", require("./controllers/ExcelParser.controller"));
 
