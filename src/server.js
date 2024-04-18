@@ -32,6 +32,7 @@ app.use("/api/user", require("./controllers/User.controller"));
 // app.use(verifyToken);
 
 app.use("/api/excel", require("./controllers/ExcelParser.controller"));
+app.use("/api/form", require("./controllers/Form.controller"));
 
 app.use(errorHandler);
 
