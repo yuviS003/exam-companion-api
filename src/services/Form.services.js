@@ -26,7 +26,7 @@ async function getAllForms() {
 }
 
 async function getFormById(formId) {
-  return await Form.find({ formId });
+  return await Form.findOne({ formId });
 }
 
 async function getAllFormsByUserId(userId) {
