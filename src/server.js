@@ -34,6 +34,8 @@ app.use("/api/user", require("./controllers/User.controller"));
 app.use("/api/excel", require("./controllers/ExcelParser.controller"));
 app.use("/api/form", require("./controllers/Form.controller"));
 app.use("/api/response", require("./controllers/Response.controller"));
+app.use("/api/feedback", require("./controllers/Feedback.controller"));
+app.use("/api/report", require("./controllers/Report.controller"));
 
 app.use(errorHandler);
 
