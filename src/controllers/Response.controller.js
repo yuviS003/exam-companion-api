@@ -3,6 +3,7 @@ const router = express.Router();
 const responseService = require("../services/Response.services");
 
 router.post("/create", createResponse);
+router.get("/", getAllResponses);
 router.get("/getById", getResponseById);
 router.get("/getAllResponseByUserId", getAllResponseByUserId);
 
@@ -48,6 +49,17 @@ async function getAllResponseByUserId(req, res, next) {
     const responseDetails = await responseService.getAllResponseByUserId(
       userId
     );
+
+    res.status(200).json(responseDetails);
+  } catch (error) {
+    console.log("from controllers", error);
+    next(error);
+  }
+}
+
+async function getAllResponses(req, res, next) {
+  try {
+    const responseDetails = await responseService.getAllResponses();
 
     res.status(200).json(responseDetails);
   } catch (error) {

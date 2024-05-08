@@ -28,6 +28,14 @@ async function getResponseById(formId, userId) {
   return doesResponseExists;
 }
 
+async function getAllResponses() {
+  const doesResponseExists = await Response.find();
+
+  console.log("doesResponseExists", doesResponseExists);
+
+  return doesResponseExists;
+}
+
 async function getAllResponseByUserId(userId) {
   console.log("userId", userId);
   const doesResponseExists = await Response.find({
@@ -39,4 +47,9 @@ async function getAllResponseByUserId(userId) {
   return doesResponseExists;
 }
 
-module.exports = { createResponse, getResponseById, getAllResponseByUserId };
+module.exports = {
+  createResponse,
+  getResponseById,
+  getAllResponseByUserId,
+  getAllResponses,
+};
